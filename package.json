@@ -1,0 +1,12 @@
+{
+  "name": "express-mongodb-crud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "nodemon src/index.js --exec babel-node"
+  },
+  "keywords": [],
+  "author": "nestormeca",
+  "license": "ISC"
+}
