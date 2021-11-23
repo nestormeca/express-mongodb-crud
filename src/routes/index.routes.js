@@ -10,9 +10,13 @@ router.get("/", async (req, res) => {
 });
 
 router.post("/tasks/add", async (req, res) => {
-  const task = Task(req.body);
-  const taskSaved = await task.save();
-  res.redirect("/");
+  try {
+    const task = Task(req.body);
+    const taskSaved = await task.save();
+    res.redirect("/");
+  } catch {
+    console.log(error);
+  }
 
   //res.send("add task");
 });
@@ -23,6 +27,11 @@ router.get("/about", (req, res) => {
 
 router.get("/edit", (req, res) => {
   res.render("edit");
+});
+
+router.post("/edit", (req, res) => {
+  console.log(req.body);
+  res.send("received");
 });
 
 export default router;
