@@ -27,6 +27,8 @@ app.set("view engine", ".hbs");
 
 //middleware
 app.use(morgan("dev"));
+
+//te convierte a json lo que resives en req.body
 app.use(express.urlencoded({ extended: false }));
 
 app.use(indexRoutes);
