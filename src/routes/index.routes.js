@@ -1,55 +1,25 @@
 import { Router } from "express";
-import Task from "../models/Task";
+import {
+  renderTasks,
+  createTask,
+  renderTaskEdit,
+  updateTask,
+  deleteTask,
+  toggleDone,
+} from "../controllers/tasks.controller";
 
 const router = Router();
 
-router.get("/", async (req, res) => {
-  const tasks = await Task.find().lean();
-  //con el metodo .lean te devuelve un json tipico leido por js
-  res.render("index", { tasks: tasks });
-});
+router.get("/", renderTasks);
 
-router.post("/tasks/add", async (req, res) => {
-  try {
-    const task = Task(req.body);
-    const taskSaved = await task.save();
-    res.redirect("/");
-  } catch {
-    console.log(error);
-  }
+router.post("/tasks/add", createTask);
 
-  //res.send("add task");
-});
+router.get("/tasks/:id/edit", renderTaskEdit);
 
-router.get("/about", (req, res) => {
-  res.render("about");
-});
+router.post("/tasks/:id/edit", updateTask);
 
-router.get("/edit/:id", async (req, res) => {
-  try {
-    const task = await Task.findById(req.params.id).lean();
+router.get("/tasks/:id/delete", deleteTask);
 
-    res.render("edit", { task });
-  } catch {
-    error;
-  }
-  {
-    console.log(error.message);
-  }
-});
-
-router.post("/edit/:id", async (req, res) => {
-  const { id } = req.params;
-
-  await Task.findByIdAndUpdate(id, req.body);
-
-  res.redirect("/");
-});
-
-router.get("/delete/:id", async (req, res) => {
-  const { id } = req.params;
-  await Task.findByIdAndDelete(id);
-  res.redirect("/");
-});
+router.get("/toggleDone/:id", toggleDone);
 
 export default router;
