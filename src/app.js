@@ -28,9 +28,13 @@ app.set("view engine", ".hbs");
 //middleware
 app.use(morgan("dev"));
 
-//te convierte a json lo que resives en req.body
+//te convierte a json lo que recives en req.body
 app.use(express.urlencoded({ extended: false }));
 
+//Routes
 app.use(indexRoutes);
+
+//Stacic files
+app.use(express.static(path.join(__dirname, "public")));
 
 export default app;
